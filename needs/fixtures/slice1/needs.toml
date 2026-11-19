@@ -1,0 +1,56 @@
+# Slice 1 needs configuration (docs/needs-backbone.md §5).
+[needs]
+project = "tidal-family slice 1"
+
+[[needs.types]]
+directive = "q"
+title = "Question"
+prefix = "Q_"
+id_regex = "Q_[0-9]{3}"
+required = ["status", "area"]
+
+[[needs.types]]
+directive = "fact"
+title = "Finding"
+prefix = "F_"
+id_regex = "F_[0-9]{3}"
+required = ["status", "evidence", "answers"]
+
+[needs.fields.status]
+description = "Agents set draft or proposed; only the architect sets approved, rejected or superseded."
+schema = { type = "string", enum = ["draft", "proposed", "approved", "rejected", "superseded"] }
+
+[needs.fields.area]
+description = "Part of the system the question is about."
+schema = { type = "string", minLength = 1 }
+
+[needs.fields.evidence]
+description = "File and line(s) at the run's commit: path:line or path:start-end."
+schema = { type = "string", pattern = "^[^:\\s]+:[0-9]+(-[0-9]+)?$" }
+
+[needs.links.answers]
+incoming = "answered_by"
+targets = ["q"]
+
+[[needs.rules]]
+id = "fact-answers-approved-q"
+message = "every finding answers at least one approved question"
+select = { type = "fact" }
+link = "answers"
+target = { status = "approved" }
+min = 1
+
+[[needs.rules]]
+id = "approved-q-answered"
+severity = "warning"
+message = "approved question without a finding; answer it or list it as open"
+select = { type = "q", status = "approved" }
+incoming = "answers"
+min = 1
+
+[[needs.rules]]
+id = "evidence-exists"
+message = "evidence must point into the repository at the run's commit"
+select = { type = "fact" }
+field = "evidence"
+check = "file-exists"

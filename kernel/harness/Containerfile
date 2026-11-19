@@ -1,0 +1,10 @@
+# Harness image: Claude Code (pinned) and atriumctl-shim. The agent has no shell
+# tool; the base image's tools are present but unreachable.
+FROM docker.io/library/debian:13-slim
+RUN apt-get update && apt-get install -y --no-install-recommends ca-certificates \
+ && rm -rf /var/lib/apt/lists/*
+ARG CLAUDE_VERSION
+LABEL org.atriumctl.claude-code.version=$CLAUDE_VERSION
+COPY claude /usr/local/bin/claude
+COPY atriumctl-shim /usr/local/bin/atriumctl-shim
+ENTRYPOINT ["/usr/local/bin/atriumctl-shim"]

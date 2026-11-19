@@ -1,0 +1,9 @@
+[package]
+name = "needs"
+version.workspace = true
+edition.workspace = true
+publish.workspace = true
+
+[dependencies]
+needs-core = { version = "0.1.0", path = "../needs-core" }
+serde_json = "1.0.154"

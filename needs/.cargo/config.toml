@@ -1,0 +1,5 @@
+# getrandom (via jsonschema -> ahash) would call JavaScript's crypto through
+# wasm-bindgen. ahash only seeds hash maps, so needs-wasm supplies the bytes
+# itself (crates/needs-wasm/src/lib.rs) and the module has no imports.
+[target.wasm32-unknown-unknown]
+rustflags = ['--cfg', 'getrandom_backend="custom"']

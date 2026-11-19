@@ -1,0 +1,41 @@
+# Source archive of docs/ (exported from the claude.ai Project)
+asl-docs.zip
+
+# Go
+/bin/
+*.test
+*.out
+
+# Rust
+target/
+
+# WebAssembly build output
+pkg/
+
+# Python (probe tooling only; the system itself has no Python)
+.venv/
+.coverage
+__pycache__/
+
+# Runtime state
+*.sqlite
+*.sqlite-journal
+needs.json
+
+# Editors and OS
+.idea/
+.vscode/
+*.swp
+.DS_Store
+
+# Spike run output
+spikes/*/results/
+
+# Built shim
+spikes/claude-code/atriumctl-shim
+
+# Engine spike binaries
+spikes/engine/bin/
+
+# Rust build output
+needs/target/

@@ -1,0 +1,31 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="color-scheme" content="light dark">
+<title>Architect Console</title>
+<link rel="stylesheet" href="app.css">
+<script src="app.js" defer></script>
+</head>
+<body>
+<header class="bar">
+  <a class="brand" href="#/">Architect Console</a>
+  <span id="crumb" class="crumb"></span>
+  <button id="logout" class="ghost small" hidden>Sign out</button>
+</header>
+<main id="app" aria-live="polite"><p class="muted pad">Loading…</p></main>
+<template id="login-tpl">
+  <section class="login card">
+    <h1>Sign in</h1>
+    <p class="muted">Enter the console token. It is in <code>~/.config/atriumctl/console-token</code> on the control machine.</p>
+    <form id="login-form">
+      <label for="token">Token</label>
+      <input id="token" name="token" autocomplete="one-time-code" autocapitalize="characters" spellcheck="false" placeholder="XXXX-XXXX-XXXX-XXXX-XXXX" required>
+      <button type="submit" class="primary">Sign in</button>
+      <p id="login-error" class="error" role="alert"></p>
+    </form>
+  </section>
+</template>
+</body>
+</html>
